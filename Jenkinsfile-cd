@@ -18,7 +18,8 @@ pipeline {
                     chmod 400 $PEM_FILE
                     ssh -i $PEM_FILE -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST 
                     cd $ARTIFACT_PATH
-                    rm -rf *
+                    sh check.sh
+                    rm -rf *.jar
                     wget $NEXUS_URL/$ARTIFACT_NAME
                     nohup java -jar hello-${params.ARTIFACT_VERSION}.jar > app.log 2>&1 &
                     """
